@@ -36,6 +36,8 @@ jobs:
       - name: Show ECS cluster info for debug
         run: |
           aws ecs list-clusters --region ${{ secrets.AWS_REGION }}
+          echo "Cluster name is: ${{ secrets.ECS_CLUSTER }}"
+
 
       - name: Deploy to ECS service
         env:
