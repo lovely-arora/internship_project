@@ -52,7 +52,7 @@ module.exports = {
         }
         return makeHtmlTemplate(`
         <p>${htmlContent}</p>
-        <h3>Posts</h3>
+        <h3>Post</h3>
         <p>${makeHtmlPostList()}</p>
         <p>${controller}</p>
         `);
