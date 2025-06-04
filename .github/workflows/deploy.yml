@@ -32,10 +32,14 @@ jobs:
           docker build -t $ECR_REPOSITORY:$IMAGE_TAG -f simple-nodejs-web-app/Dockerfile simple-nodejs-web-app/
           docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-      - name: Deploy to ECS service
-        env:
-          CLUSTER_NAME: ${{ secrets.ECS_CLUSTER }}
-          SERVICE_NAME: ${{ secrets.ECS_SERVICE }}
+      - name: Show ECS cluster info for debug
         run: |
-          aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
+           aws ecs list-clusters --region ${{ secrets.AWS_REGION }}
+
+      - - name: Deploy to ECS service
+          env:
+             AWS_REGION: ${{ secrets.AWS_REGION }}
+             CLUSTER_NAME: ${{ secrets.ECS_CLUSTER }}
+             SERVICE_NAME: ${{ secrets.ECS_SERVICE }}
+          run: |
+              aws ecs update-service --region $AWS_REGION --cluster $CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
