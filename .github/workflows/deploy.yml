@@ -37,6 +37,8 @@ jobs:
         run: |
           aws ecs list-clusters --region ${{ secrets.AWS_REGION }}
           echo "Cluster name is: ${{ secrets.ECS_CLUSTER }}"
+          aws ecs list-services --region ${{ secrets.AWS_REGION }} --cluster ${{ secrets.ECS_CLUSTER }}
+
 
 
       - name: Deploy to ECS service
