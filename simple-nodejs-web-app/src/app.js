@@ -3,6 +3,8 @@ const url = require('url');
 const config = require('./config');
 const template = require('./lib/template');
 const process = require('./lib/process');
+const tracer = require('dd-trace').init();
+
 
 http.createServer((req, resp) => {
     const urlParse = url.parse(req.url, true);
